@@ -77,9 +77,6 @@
       font-weight: 600; line-height: 1.7;
     }
     .cta-row, .final-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
-    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 26px; }
-    .stat { padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); }
-    .stat strong { display: block; margin-bottom: 6px; font-family: Georgia, "Times New Roman", serif; font-size: 1.16rem; }
     .hero-visual {
       display: flex; align-items: center; justify-content: center; min-height: 520px; position: relative; overflow: hidden;
       background: linear-gradient(180deg, rgba(255,247,240,0.95), rgba(243,228,214,0.96));
@@ -104,16 +101,54 @@
       min-height: 200px;
       background: #f4dfd1;
     }
-    .hero-media-primary { min-height: 420px; }
+    .hero-media-primary {
+      min-height: 420px;
+      display: grid;
+      grid-template-rows: minmax(280px, 320px) auto;
+      background: #ebe2df;
+    }
     .hero-media-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
+    .hero-media-primary-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 18px 10px;
+      background: linear-gradient(180deg, rgba(248, 245, 244, 0.96), rgba(240, 232, 229, 0.92));
+    }
+    .hero-media-primary-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+    .hero-media-primary-copy {
+      padding: 18px 18px 20px;
+      background: rgba(226, 217, 216, 0.94);
+      border-top: 1px solid rgba(76, 39, 22, 0.08);
+    }
     .ribbon {
       position: absolute; left: 16px; bottom: 16px; width: 170px; padding: 16px; border-radius: 22px;
       background: rgba(34,24,20,0.9); color: #fff8f3;
+    }
+    .hero-media-primary-copy .ribbon {
+      position: static;
+      width: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: #2b211d;
+      line-height: 1.38;
+    }
+    .hero-media-primary-copy .ribbon strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+      font-family: Georgia, "Times New Roman", serif;
     }
     .section { padding: 16px 0 24px; }
     .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; flex-wrap: wrap; }
@@ -174,7 +209,6 @@
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 960px) {
       .hero-grid, .proofs, .products, .story-grid, .quiz-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; }
       .hero h1 { max-width: none; }
       .final { flex-direction: column; align-items: flex-start; }
     }
@@ -184,6 +218,7 @@
       .quiz-options { grid-template-columns: 1fr; }
       .hero-visual { min-height: 430px; }
       .hero-media { grid-template-columns: 1fr; }
+      .hero-media-primary { grid-template-rows: minmax(240px, 300px) auto; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -223,29 +258,19 @@
             <a class="btn btn-primary" href="#products">Shop The Deals Now</a>
             <a class="btn btn-secondary" href="#quiz">Find Your Routine Match</a>
           </div>
-          <div class="stats">
-            <div class="stat">
-              <strong>LP 1</strong>
-              Two recovered products, hard pricing, and urgency CTA.
-            </div>
-            <div class="stat">
-              <strong>LP 2</strong>
-              "7 Day Beauty Test" plus advertorial social proof.
-            </div>
-            <div class="stat">
-              <strong>LP 3</strong>
-              Skin-type quiz rebuilt with plain JavaScript.
-            </div>
-          </div>
         </article>
 
         <aside class="hero-visual panel fade d2" aria-hidden="true">
           <div class="hero-media">
             <div class="hero-media-card hero-media-primary">
-              <img src="https://images.ctfassets.net/eoaaqxyywn6o/5z5xBrk8X90iFnHT1Z6JYd/5904158ae318208650b0a2b14f35997f/Hero_Desktop_GBP_ROW.jpg" alt="">
-              <div class="ribbon">
-                <strong>Limited Stock</strong>
-                Beauty Bay UK / GBP campaign imagery is now replacing the original placeholders.
+              <div class="hero-media-primary-image">
+                <img src="https://images.ctfassets.net/eoaaqxyywn6o/5z5xBrk8X90iFnHT1Z6JYd/5904158ae318208650b0a2b14f35997f/Hero_Desktop_GBP_ROW.jpg" alt="">
+              </div>
+              <div class="hero-media-primary-copy">
+                <div class="ribbon">
+                  <strong>Limited Stock</strong>
+                  Beauty Bay UK / GBP campaign imagery is now replacing the original placeholders.
+                </div>
               </div>
             </div>
             <div class="hero-media-stack">
