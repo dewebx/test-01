@@ -157,7 +157,12 @@
       padding: 20px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid var(--line);
     }
     .proof strong, .product h3, .result-box h3 { display: block; margin-top: 12px; font-family: Georgia, "Times New Roman", serif; }
-    .product { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .product {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
     .product.active { border-color: rgba(214,93,73,0.42); box-shadow: 0 20px 48px rgba(214,93,73,0.16); }
     .visual {
       position: relative; height: 220px; border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
@@ -189,6 +194,7 @@
       font-weight: 700;
     }
     .price { display: flex; align-items: baseline; gap: 10px; margin: 14px 0 16px; }
+    .product .price { margin-top: auto; }
     .old { color: #8c786f; text-decoration: line-through; font-weight: 700; }
     .new { color: var(--accent-dark); font-size: 1.45rem; font-weight: 800; }
     .story-grid { grid-template-columns: 1.05fr .95fr; }
@@ -337,7 +343,7 @@
             <h3>Luxury Serum</h3>
             <p>Lightweight glow serum for dull or thirsty skin. This card keeps the recovered LP 1 naming and pricing.</p>
             <div class="price"><span class="old">&pound;59</span><span class="new">&pound;14.99</span></div>
-            <a class="btn btn-primary" href="#checkout">Add to Basket</a>
+            <a class="btn btn-primary" href="#checkout">Shop Now</a>
           </article>
 
           <article class="product panel fade d2 active" data-skin="oily combination">
@@ -359,7 +365,7 @@
             <h3>Recovery Cream</h3>
             <p>Added to round out the routine for richer overnight repair and sensitivity support.</p>
             <div class="price"><span class="old">&pound;72</span><span class="new">&pound;24.99</span></div>
-            <a class="btn btn-primary" href="#checkout">Add to Basket</a>
+            <a class="btn btn-primary" href="#checkout">Shop Now</a>
           </article>
         </div>
       </div>
