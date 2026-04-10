@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Beauty Test Sale</title>
+  <style>
+    :root {
+      --bg: #f7f1eb;
+      --panel: rgba(255, 251, 246, 0.9);
+      --ink: #211714;
+      --muted: #6f5c53;
+      --line: rgba(76, 39, 22, 0.12);
+      --accent: #d65d49;
+      --accent-dark: #aa4333;
+      --gold: #c68b4a;
+      --shadow: 0 18px 48px rgba(87, 44, 26, 0.12);
+      --radius: 24px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", "Trebuchet MS", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(214, 93, 73, 0.16), transparent 26%),
+        radial-gradient(circle at 88% 10%, rgba(198, 139, 74, 0.16), transparent 22%),
+        linear-gradient(180deg, #fbf5ef 0%, #f7f1eb 54%, #efe4d8 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.78); border: 1px solid var(--line); color: var(--muted);
+      font-size: .88rem; font-weight: 700;
+    }
+    .panel {
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); backdrop-filter: blur(8px);
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 22px;
+      border-radius: 999px; font-weight: 700; border: 1px solid transparent; cursor: pointer;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .btn:hover, .quiz-option:hover, .product.active { transform: translateY(-2px); }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, var(--accent), #ea7f60); }
+    .btn-secondary { background: rgba(255,255,255,0.74); border-color: var(--line); }
+    .topbar { padding: 18px 0 12px; }
+    .topbar-inner {
+      display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px 20px;
+      border-radius: 999px; background: rgba(255,252,248,0.82); border: 1px solid var(--line);
+    }
+    .brand {
+      font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: .11em;
+      text-transform: uppercase; font-size: .95rem;
+    }
+    .mini-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero { padding: 20px 0 42px; }
+    .hero-grid, .story-grid, .quiz-grid { display: grid; gap: 22px; }
+    .hero-grid { grid-template-columns: 1.05fr .95fr; }
+    .hero-copy, .hero-visual, .story, .reviews, .quiz, .final { padding: 28px; }
+    .hero h1, .section h2, .story h2, .quiz h2, .final h2 {
+      margin: 16px 0 0; line-height: 1.03; font-family: Georgia, "Times New Roman", serif;
+    }
+    .hero h1 { font-size: clamp(2.6rem, 4vw, 4.8rem); max-width: 12ch; }
+    .lead, .section-copy, .story p, .reviews p, .quiz-copy, .availability, .product p {
+      color: var(--muted); line-height: 1.75;
+    }
+    .lead { margin: 18px 0 0; max-width: 62ch; }
+    .quote {
+      margin-top: 18px; padding-left: 16px; border-left: 3px solid var(--accent);
+      font-weight: 600; line-height: 1.7;
+    }
+    .cta-row, .final-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 26px; }
+    .stat { padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); }
+    .stat strong { display: block; margin-bottom: 6px; font-family: Georgia, "Times New Roman", serif; font-size: 1.16rem; }
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center; min-height: 520px; position: relative; overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,247,240,0.95), rgba(243,228,214,0.96));
+    }
+    .hero-media {
+      width: min(100%, 450px);
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .hero-media-stack {
+      display: grid;
+      gap: 14px;
+    }
+    .hero-media-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(76, 39, 22, 0.12);
+      box-shadow: 0 18px 36px rgba(84,39,22,0.16);
+      min-height: 200px;
+      background: #f4dfd1;
+    }
+    .hero-media-primary { min-height: 420px; }
+    .hero-media-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ribbon {
+      position: absolute; left: 16px; bottom: 16px; width: 170px; padding: 16px; border-radius: 22px;
+      background: rgba(34,24,20,0.9); color: #fff8f3;
+    }
+    .section { padding: 16px 0 24px; }
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 18px; flex-wrap: wrap; }
+    .proofs, .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .proof, .product, .review-card, .timeline-card, .result-box {
+      padding: 20px; border-radius: 22px; background: rgba(255,255,255,0.72); border: 1px solid var(--line);
+    }
+    .proof strong, .product h3, .result-box h3 { display: block; margin-top: 12px; font-family: Georgia, "Times New Roman", serif; }
+    .product { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .product.active { border-color: rgba(214,93,73,0.42); box-shadow: 0 20px 48px rgba(214,93,73,0.16); }
+    .visual {
+      position: relative; height: 220px; border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
+      background: linear-gradient(135deg, #fff4eb, #f2dbc9);
+    }
+    .visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(27, 16, 12, 0.02), rgba(27, 16, 12, 0.24));
+    }
+    .visual-tag {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 1;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(76, 39, 22, 0.12);
+      color: #5f463c;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .price { display: flex; align-items: baseline; gap: 10px; margin: 14px 0 16px; }
+    .old { color: #8c786f; text-decoration: line-through; font-weight: 700; }
+    .new { color: var(--accent-dark); font-size: 1.45rem; font-weight: 800; }
+    .story-grid { grid-template-columns: 1.05fr .95fr; }
+    .timeline, .review-list, .quiz-options { display: grid; gap: 14px; margin-top: 20px; }
+    .quiz-grid { grid-template-columns: .92fr 1.08fr; align-items: start; }
+    .quiz-options { grid-template-columns: repeat(2,1fr); }
+    .quiz-option {
+      padding: 16px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,0.82);
+      text-align: left; font: inherit; color: var(--ink); cursor: pointer; transition: transform .22s ease, border-color .22s ease;
+    }
+    .quiz-option.selected { border-color: rgba(214,93,73,0.42); background: rgba(255,244,240,0.94); }
+    .result-box h3 { margin: 14px 0 8px; font-size: 1.8rem; }
+    .result-list { margin: 16px 0 0; padding-left: 18px; color: #50372e; line-height: 1.9; }
+    .availability { margin-top: 18px; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); }
+    .final { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 32px; }
+    .fade { opacity: 0; transform: translateY(18px); animation: rise .7s ease forwards; }
+    .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 960px) {
+      .hero-grid, .proofs, .products, .story-grid, .quiz-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .hero h1 { max-width: none; }
+      .final { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 640px) {
+      .topbar-inner { border-radius: 24px; }
+      .hero-copy, .hero-visual, .story, .reviews, .quiz, .final { padding: 22px; }
+      .quiz-options { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 430px; }
+      .hero-media { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade { opacity: 1; transform: none; animation: none; }
+      .btn, .quiz-option, .product { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner fade">
+        <div class="brand">Douglas Deal Edit</div>
+        <div class="mini-meta">
+          <span class="pill">Trending in Europe</span>
+          <span class="pill">Up to 70% OFF</span>
+          <span class="pill">4.8 / 2,341 reviews</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="hero-copy panel fade d1">
+          <span class="pill">Rebuilt from the .pages draft</span>
+          <h1>I Tried the 7-Day Beauty Test. These Were the Only Deals Worth Buying.</h1>
+          <p class="lead">
+            The file in this folder contained three landing-page directions: a direct deal page, a story-led
+            advertorial, and a quiz funnel. This deployable version combines all three into one static page with no build step.
+          </p>
+          <p class="quote">
+            "I thought it was fake at first. Like, how can luxury beauty products be this cheap? But I tested them anyway."
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#products">Shop The Deals Now</a>
+            <a class="btn btn-secondary" href="#quiz">Find Your Routine Match</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>LP 1</strong>
+              Two recovered products, hard pricing, and urgency CTA.
+            </div>
+            <div class="stat">
+              <strong>LP 2</strong>
+              "7 Day Beauty Test" plus advertorial social proof.
+            </div>
+            <div class="stat">
+              <strong>LP 3</strong>
+              Skin-type quiz rebuilt with plain JavaScript.
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-visual panel fade d2" aria-hidden="true">
+          <div class="hero-media">
+            <div class="hero-media-card hero-media-primary">
+              <img src="https://images.ctfassets.net/eoaaqxyywn6o/5z5xBrk8X90iFnHT1Z6JYd/5904158ae318208650b0a2b14f35997f/Hero_Desktop_GBP_ROW.jpg" alt="">
+              <div class="ribbon">
+                <strong>Limited Stock</strong>
+                Beauty Bay UK / GBP campaign imagery is now replacing the original placeholders.
+              </div>
+            </div>
+            <div class="hero-media-stack">
+              <div class="hero-media-card">
+                <img src="https://images.ctfassets.net/eoaaqxyywn6o/6MzyKSGF1mWHKLmeMhX0yn/7fe4bbcb4a58911bddf684451c0af5d8/Hero_Mobile_GBP_ROW.jpg" alt="">
+              </div>
+              <div class="hero-media-card">
+                <img src="https://images.ctfassets.net/eoaaqxyywn6o/4y6has2bzKKXXw1FwUbYfW/aca8209af117f69e9da3cecfd58b4844/29_06_SPEND_SAVE_HP-POSTER-UK-GBP-1-.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="proofs">
+          <article class="proof panel fade d1">
+            <span class="pill">Recovered direction</span>
+            <strong>Deal Page</strong>
+            <p class="section-copy">
+              The document clearly showed LP 1 with "Luxury Beauty Sale", "Shop The Deals Now", and a compact product grid.
+            </p>
+          </article>
+          <article class="proof panel fade d2">
+            <span class="pill">Recovered direction</span>
+            <strong>Advertorial</strong>
+            <p class="section-copy">
+              LP 2 surfaced "Trending in Europe", "7 Day Beauty Test", and a stronger before/after story angle.
+            </p>
+          </article>
+          <article class="proof panel fade d3">
+            <span class="pill">Recovered direction</span>
+            <strong>Quiz Funnel</strong>
+            <p class="section-copy">
+              LP 3 mentioned "Find Your Perfect Skincare Routine", with options like "Dry" and a follow-up match state.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="pill">Top Picks</span>
+            <h2>Luxury Beauty Sale</h2>
+            <p class="section-copy">
+              Two products and prices were legible in the recovered file: Luxury Serum from &pound;59 to &pound;14.99,
+              and Foundation from &pound;49 to &pound;17.99. A third compatible item is added so the page feels complete.
+            </p>
+          </div>
+          <a class="btn btn-secondary" href="#checkout">See Today's Picks</a>
+        </div>
+
+        <div class="products">
+          <article class="product panel fade d1 active" data-skin="dry combination sensitive">
+            <div class="visual">
+              <img src="https://images.ctfassets.net/eoaaqxyywn6o/6sFwWH6LLnVOfOqe4y84gp/893adf9f4b9417a72c49cf11577da60d/Sheer_Tinted_Lip_Balm_EPDP_UK.jpg" alt="Beauty Bay UK image">
+              <span class="visual-tag">Beauty Bay UK</span>
+            </div>
+            <h3>Luxury Serum</h3>
+            <p>Lightweight glow serum for dull or thirsty skin. This card keeps the recovered LP 1 naming and pricing.</p>
+            <div class="price"><span class="old">&pound;59</span><span class="new">&pound;14.99</span></div>
+            <a class="btn btn-primary" href="#checkout">Add to Basket</a>
+          </article>
+
+          <article class="product panel fade d2 active" data-skin="oily combination">
+            <div class="visual">
+              <img src="https://images.ctfassets.net/eoaaqxyywn6o/6MzyKSGF1mWHKLmeMhX0yn/7fe4bbcb4a58911bddf684451c0af5d8/Hero_Mobile_GBP_ROW.jpg" alt="Beauty Bay GBP image">
+              <span class="visual-tag">UK / GBP</span>
+            </div>
+            <h3>Foundation</h3>
+            <p>Soft-focus coverage with a satin finish. This is the second clearly recovered product from LP 1.</p>
+            <div class="price"><span class="old">&pound;49</span><span class="new">&pound;17.99</span></div>
+            <a class="btn btn-primary" href="#checkout">Shop Now</a>
+          </article>
+
+          <article class="product panel fade d3 active" data-skin="dry sensitive">
+            <div class="visual">
+              <img src="https://images.ctfassets.net/eoaaqxyywn6o/4y6has2bzKKXXw1FwUbYfW/aca8209af117f69e9da3cecfd58b4844/29_06_SPEND_SAVE_HP-POSTER-UK-GBP-1-.jpg" alt="Beauty Bay UK GBP poster">
+              <span class="visual-tag">Beauty Bay GBP</span>
+            </div>
+            <h3>Recovery Cream</h3>
+            <p>Added to round out the routine for richer overnight repair and sensitivity support.</p>
+            <div class="price"><span class="old">&pound;72</span><span class="new">&pound;24.99</span></div>
+            <a class="btn btn-primary" href="#checkout">Add to Basket</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container story-grid">
+        <article class="story panel fade d1">
+          <span class="pill">LP 2 advertorial angle</span>
+          <h2>"Didn't expect much. Then my skin looked brighter and healthier."</h2>
+          <p>
+            The recovered strings referenced packaging quality, smoother skin, a before/after visual, and even a friend noticing the change.
+            This section rebuilds that narrative into a cleaner reading flow.
+          </p>
+          <div class="timeline">
+            <div class="timeline-card">
+              <strong>Day 1</strong>
+              Packaging looked premium, the serum absorbed fast, and the routine felt more expensive than the price suggested.
+            </div>
+            <div class="timeline-card">
+              <strong>Day 4</strong>
+              Skin felt smoother, foundation sat better, and dry areas stopped looking tired by midday.
+            </div>
+            <div class="timeline-card">
+              <strong>Day 7</strong>
+              Brightness improved, the finish looked healthier, and even a friend noticed the difference.
+            </div>
+          </div>
+        </article>
+
+        <aside class="reviews panel fade d2">
+          <span class="pill">Recovered social proof cues</span>
+          <h2>Top Picks + Reviews</h2>
+          <p>
+            The `.pages` file also surfaced a review count, "See All", availability messaging, and short customer comments.
+          </p>
+          <div class="review-list">
+            <div class="review-card">
+              "I thought it was a scam but it actually works."
+              <strong>Anna</strong>
+            </div>
+            <div class="review-card">
+              "Best beauty deal I found this year honestly."
+              <strong>Sophie</strong>
+            </div>
+            <div class="review-card">
+              "Already re-ordering before today's stock window closes."
+              <strong>Mia</strong>
+            </div>
+          </div>
+          <div class="availability">Availability note: products may sell out at any time during the promotion window.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="container">
+        <article class="quiz panel fade d1">
+          <div class="quiz-grid">
+            <div>
+              <span class="pill">LP 3 quiz rebuilt</span>
+              <h2>Find Your Perfect Skincare Routine</h2>
+              <p class="quiz-copy">
+                The original quiz was only partially recoverable, but the intent was clear: choose a skin type,
+                reveal a match, and guide visitors back to the offer.
+              </p>
+              <div class="quiz-options" aria-label="Skin type selector">
+                <button class="quiz-option selected" type="button" data-skin="dry"><strong>Dry</strong><br>Low moisture or tightness.</button>
+                <button class="quiz-option" type="button" data-skin="oily"><strong>Oily</strong><br>Shine and slip through the day.</button>
+                <button class="quiz-option" type="button" data-skin="combination"><strong>Combination</strong><br>Oily center, drier outer zones.</button>
+                <button class="quiz-option" type="button" data-skin="sensitive"><strong>Sensitive</strong><br>Reactive or redness-prone skin.</button>
+              </div>
+            </div>
+
+            <div class="result-box" id="checkout">
+              <span class="pill">Your Match</span>
+              <h3 id="result-title">Dry Skin Reset</h3>
+              <p id="result-copy" class="section-copy">
+                Start with the Luxury Serum for hydration and layer Recovery Cream at night to lock in softness.
+              </p>
+              <ul class="result-list" id="result-list">
+                <li>Best first pick: Luxury Serum</li>
+                <li>Support product: Recovery Cream</li>
+                <li>Finish goal: soft glow with less tightness</li>
+              </ul>
+              <div class="availability">Scroll back to the highlighted product cards for your recommended picks.</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="final panel fade d2">
+          <div>
+            <span class="pill">Deployable output</span>
+            <h2>One file. No build step. Ready to host.</h2>
+            <p class="section-copy">Everything is embedded in this single index.html, so you can deploy it to any static hosting service directly.</p>
+          </div>
+          <div class="final-row">
+            <a class="btn btn-primary" href="#products">See All Deals</a>
+            <a class="btn btn-secondary" href="#quiz">Try The Quiz</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizOptions = Array.from(document.querySelectorAll(".quiz-option"));
+    const products = Array.from(document.querySelectorAll(".product"));
+    const titleEl = document.getElementById("result-title");
+    const copyEl = document.getElementById("result-copy");
+    const listEl = document.getElementById("result-list");
+
+    const content = {
+      dry: {
+        title: "Dry Skin Reset",
+        copy: "Start with the Luxury Serum for hydration and layer Recovery Cream at night to seal in softness without making the routine heavy.",
+        bullets: [
+          "Best first pick: Luxury Serum",
+          "Support product: Recovery Cream",
+          "Finish goal: soft glow with less tightness"
+        ]
+      },
+      oily: {
+        title: "Balanced Shine Control",
+        copy: "Keep the routine lighter: use Foundation for a soft-focus finish and use the serum more selectively where dehydration appears first.",
+        bullets: [
+          "Best first pick: Foundation",
+          "Support product: Luxury Serum",
+          "Finish goal: smoother texture and less midday slip"
+        ]
+      },
+      combination: {
+        title: "Zone-by-Zone Match",
+        copy: "Combination skin usually wants flexibility. The serum helps dry zones while Foundation keeps the center of the face polished and even.",
+        bullets: [
+          "Best first pick: Luxury Serum",
+          "Support product: Foundation",
+          "Finish goal: balanced hydration with controlled shine"
+        ]
+      },
+      sensitive: {
+        title: "Calm + Repair Routine",
+        copy: "Go gentle first. Recovery Cream takes priority, while the serum can be introduced slowly to support glow without overwhelming reactive skin.",
+        bullets: [
+          "Best first pick: Recovery Cream",
+          "Support product: Luxury Serum",
+          "Finish goal: calmer skin barrier with less visible redness"
+        ]
+      }
+    };
+
+    function renderResult(skin) {
+      const next = content[skin];
+      titleEl.textContent = next.title;
+      copyEl.textContent = next.copy;
+      listEl.innerHTML = next.bullets.map((item) => `<li>${item}</li>`).join("");
+
+      quizOptions.forEach((option) => {
+        option.classList.toggle("selected", option.dataset.skin === skin);
+      });
+
+      products.forEach((product) => {
+        const matches = product.dataset.skin.split(" ").includes(skin);
+        product.classList.toggle("active", matches);
+      });
+    }
+
+    quizOptions.forEach((option) => {
+      option.addEventListener("click", () => renderResult(option.dataset.skin));
+    });
+
+    renderResult("dry");
+  </script>
+</body>
+</html>
