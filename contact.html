@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | FashionSStalk</title>
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --card: #ffffff;
+      --ink: #333333;
+      --heading: #111111;
+      --muted: #666666;
+      --line: rgba(17, 17, 17, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--ink);
+    }
+
+    a { color: #000000; text-decoration: none; }
+    .shell { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 48px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .back-link { color: var(--muted); font-size: 0.95rem; }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--line);
+    }
+    h1, h2 { color: var(--heading); margin: 0 0 16px; }
+    h2 { margin-top: 28px; font-size: 1.25rem; }
+    p { margin: 0 0 18px; }
+    .footer { margin-top: 30px; font-size: 14px; color: var(--muted); }
+    .footer p:last-child { margin-bottom: 0; }
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(900px, calc(100% - 24px)); padding: 20px 0 36px; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .container { padding: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="brand" href="index.html">FashionSStalk</a>
+      <a class="back-link" href="index.html">Back to Home</a>
+    </div>
+
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>If you have any questions, partnership inquiries, or support requests, please feel free to contact us.</p>
+
+      <h2>Company Details</h2>
+      <p><strong>Company Name:</strong> Revolution-Ads Limited</p>
+      <p><strong>Address:</strong> ROOM 511, 5/F, MING SANG IND BLDG, 19-21 HING YIP STREET, KWUN TONG, KLN, HONG KONG</p>
+
+      <h2>Email</h2>
+      <p><strong>General Inquiries:</strong> <a href="mailto:info@fashionsstalk.com">info@fashionsstalk.com</a></p>
+      <p><strong>Business Cooperation / Advertising:</strong> <a href="mailto:ads@fashionsstalk.com">ads@fashionsstalk.com</a></p>
+
+      <h2>Website</h2>
+      <p><a href="index.html">FashionSStalk</a></p>
+      <p>We aim to respond within 24-48 hours.</p>
+
+      <div class="footer">
+        <p>&copy; 2026 FashionSStalk. All Rights Reserved.</p>
+      </div>
+
+      <div class="legal-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
