@@ -210,6 +210,14 @@
     .result-list { margin: 16px 0 0; padding-left: 18px; color: #50372e; line-height: 1.9; }
     .availability { margin-top: 18px; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); }
     .final { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 32px; }
+    .site-footer { padding: 0 0 28px; }
+    .site-footer-inner {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px;
+      border-radius: 999px; background: rgba(255,252,248,0.82); border: 1px solid var(--line); flex-wrap: wrap;
+    }
+    .site-footer-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .site-footer-links a { color: var(--muted); font-size: .92rem; font-weight: 700; }
+    .site-footer-links a:hover { color: var(--accent-dark); }
     .fade { opacity: 0; transform: translateY(18px); animation: rise .7s ease forwards; }
     .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
@@ -225,6 +233,8 @@
       .hero-visual { min-height: 430px; }
       .hero-media { grid-template-columns: 1fr; }
       .hero-media-primary { grid-template-rows: minmax(240px, 300px) auto; }
+      .site-footer-inner { justify-content: center; border-radius: 24px; }
+      .site-footer-links { justify-content: center; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -237,7 +247,7 @@
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner fade">
-        <div class="brand">Douglas Deal Edit</div>
+        <div class="brand">FashionSStalk</div>
         <div class="mini-meta">
           <span class="pill">Trending in Europe</span>
           <span class="pill">Up to 70% OFF</span>
@@ -343,7 +353,7 @@
             <h3>Luxury Serum</h3>
             <p>Lightweight glow serum for dull or thirsty skin. This card keeps the recovered LP 1 naming and pricing.</p>
             <div class="price"><span class="old">&pound;59</span><span class="new">&pound;14.99</span></div>
-            <a class="btn btn-primary" href="#checkout">Shop Now</a>
+            <a class="btn btn-primary" href="https://www.jianguoyun.com" target="_blank" rel="noopener noreferrer">Shop Now</a>
           </article>
 
           <article class="product panel fade d2 active" data-skin="oily combination">
@@ -354,7 +364,7 @@
             <h3>Foundation</h3>
             <p>Soft-focus coverage with a satin finish. This is the second clearly recovered product from LP 1.</p>
             <div class="price"><span class="old">&pound;49</span><span class="new">&pound;17.99</span></div>
-            <a class="btn btn-primary" href="#checkout">Shop Now</a>
+            <a class="btn btn-primary" href="https://www.jianguoyun.com" target="_blank" rel="noopener noreferrer">Claim Offer</a>
           </article>
 
           <article class="product panel fade d3 active" data-skin="dry sensitive">
@@ -365,7 +375,7 @@
             <h3>Recovery Cream</h3>
             <p>Added to round out the routine for richer overnight repair and sensitivity support.</p>
             <div class="price"><span class="old">&pound;72</span><span class="new">&pound;24.99</span></div>
-            <a class="btn btn-primary" href="#checkout">Shop Now</a>
+            <a class="btn btn-primary" href="https://www.jianguoyun.com" target="_blank" rel="noopener noreferrer">Learn More</a>
           </article>
         </div>
       </div>
@@ -474,6 +484,18 @@
       </div>
     </section>
   </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer-inner">
+        <div class="brand">FashionSStalk</div>
+        <div class="site-footer-links">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="disclaimer.html">Disclaimer</a>
+        </div>
+      </div>
+    </div>
+  </footer>
   <script>
     const quizOptions = Array.from(document.querySelectorAll(".quiz-option"));
     const products = Array.from(document.querySelectorAll(".product"));
